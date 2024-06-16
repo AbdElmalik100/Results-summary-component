@@ -1,7 +1,14 @@
 <template>
+    <div class="text-right p-4 md:p-10 md:pb-0">
+        <USelectMenu class="w-32 ms-auto capitalize" v-model="selected" :options="modes">
+            <template #leading>
+                <UIcon :name="selected.icon" class="w-5 h-5" />
+            </template>
+        </USelectMenu>
+    </div>
     <div class="main-page min-h-screen grid place-items-center">
         <div
-            class="outer-box md:h-4/5 h-full flex items-start md:rounded-3xl rounded-none bg-White shadow-xl shadow-Pale-blue md:flex-row flex-col">
+            class="outer-box md:h-4/5 h-full flex items-start md:rounded-3xl rounded-none dark:bg-cool-800 bg-White dark:shadow-lg dark:shadow-Dark-gray-blue shadow-xl shadow-Pale-blue md:flex-row flex-col transition ease-in-out">
             <div
                 class="left-side h-full md:rounded-3xl rounded-br-3xl rounded-bl-3xl p-10 bg-gradient-to-t from-Light-royal-blue(background) to-Light-slate-blue(background) text-center flex flex-col justify-center w-full">
                 <span class="text-Light-lavender">Your Result</span>
@@ -22,14 +29,12 @@
                 </p>
             </div>
             <div class="right-side p-5 md:px-10 w-full flex flex-col justify-between h-full md:gap-0 gap-8">
-                <span class="text-Dark-gray-blue font-bold text-2xl">Summary</span>
+                <span class="dark:text-White text-Dark-gray-blue font-bold text-2xl transition ease-in-out">Summary</span>
                 <div class="flex flex-col gap-4 mt-4">
                     <div class="box flex items-center justify-between p-3 px-5 rounded-lg"
                         :class="index == 0 ? 'bg-Light-red/5' : index == 1 ? 'bg-Orangey-yellow/5' : index == 2 ? 'bg-Green-teal/5' : 'bg-Cobalt-blue/5'"
                         v-for="(item, index) in data" :key="index">
                         <div class="flex gap-2 items-center">
-                            <!-- <Icon name="i-radix-icons-lightning-bolt" class="text-Light-red text-1xl" /> -->
-                            <!-- <span class="icon-[radix-icons--lightning-bolt]" style="color: #9d5c5c;"></span> -->
                             <img :src="item.icon" alt="">
                             <span class="font-bold"
                                 :class="index == 0 ? 'text-Light-red' : index == 1 ? 'text-Orangey-yellow' : index == 2 ? 'text-Green-teal' : 'text-Cobalt-blue'">
@@ -37,7 +42,7 @@
                             </span>
                         </div>
                         <div class="font-bold">
-                            <span class="text-Dark-gray-blue">
+                            <span class="dark:text-White text-Dark-gray-blue">
                                 {{ item.score }}
                             </span>
                             <span class="text-Light-lavender"> / 100</span>
@@ -55,12 +60,31 @@
 
 <script setup>
 const data = ref(null)
+const colorMode = useColorMode()
+const modes = ref([
+    {
+        icon: 'i-material-symbols-dark-mode',
+        label: "dark"
+    },
+    {
+        icon: 'i-material-symbols:light-mode',
+        label: "light"
+    },
+    {
+        icon: 'i-ph:monitor-duotone',
+        label: "system"
+    }
+])
+const selected = ref(modes.value[0])
 
+
+watch(selected, newVal => {
+    if (newVal.label !== colorMode.preference) colorMode.preference = newVal.label
+})
 
 onNuxtReady(async () => {
     $fetch('data.json')
         .then(response => {
-            console.log(response);
             data.value = response
         })
 })

@@ -7,6 +7,6 @@
     @apply box-border;
   }
   body {
-    @apply font-Hanken-Grotesk text-lg bg-white;
+    @apply font-Hanken-Grotesk text-lg dark:bg-cool-900 transition ease-in-out;
   }
 }

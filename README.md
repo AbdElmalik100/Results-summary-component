@@ -29,4 +29,4 @@ npm run generate
 ```
 
 # Demo Site
-https://abdelmalik100.github.io/Room-homepage/
+https://results-summarycomponent.vercel.app/

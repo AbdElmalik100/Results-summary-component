@@ -12,9 +12,7 @@ export default defineNuxtConfig({
       "Hanken Grotesk": [500, 700, 800],
     },
   },
-  tailwindcss: {
-    configPath: "~/tailwind.config.js",
-  },
   css: ["~/assets/css/globals.scss"],
-  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "nuxt-icon"],
+  // modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "nuxt-icon", "@nuxt/ui"],
+  modules: ["@nuxtjs/google-fonts", "@nuxt/ui"],
 });
