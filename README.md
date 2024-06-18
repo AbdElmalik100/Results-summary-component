@@ -1,4 +1,4 @@
-# Room homepage
+# Results summary component
 
 Responsive Front-End Mentor Challenge (HTML + CSS)
 
